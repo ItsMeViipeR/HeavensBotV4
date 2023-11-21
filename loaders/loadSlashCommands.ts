@@ -26,7 +26,6 @@ export default async function loadSlashCommands(client: HeavensBot) {
       );
 
     command.options?.forEach((option: any) => {
-      console.log(option);
       switch (option.type) {
         case "string":
           slashCommand.addStringOption((command_option) =>
@@ -44,12 +43,12 @@ export default async function loadSlashCommands(client: HeavensBot) {
               .setRequired(option.required)
           );
           break;
-        default:
-          console.log("zizi");
       }
     });
 
     client_commands.push(slashCommand);
+
+    console.log(`Loaded ${command.name} slash command.`);
   });
 
   const rest = new REST({ version: "10" }).setToken(process.env.PROD_TOKEN!);
