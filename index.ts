@@ -6,5 +6,3 @@ const client = new HeavensBot();
 client.start();
 
 loadEvents(client);
-
-console.log(client.user);
