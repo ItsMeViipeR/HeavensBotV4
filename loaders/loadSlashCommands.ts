@@ -2,14 +2,6 @@ import { REST, Routes, SlashCommandBuilder } from "discord.js";
 import { HeavensBot } from "../client";
 import { readdirSync } from "fs";
 
-interface CommandOption {
-  name: string;
-  description: string;
-  type: string;
-  required: boolean;
-  autocomplete: boolean;
-}
-
 export default async function loadSlashCommands(client: HeavensBot) {
   let commands = readdirSync("./commands").filter((f) => f.endsWith(".ts"));
 
@@ -33,21 +25,29 @@ export default async function loadSlashCommands(client: HeavensBot) {
         command.permissions === null ? null : command.permissions
       );
 
-    if (command.options.length >= 1) {
-      command.options.forEach((command_option: CommandOption) => {
-        if (command_option.type === "string")
-          slashCommand.addStringOption((option) =>
-            option
-              .setName(command_option.name)
-              .setDescription(command_option.description)
-              .setRequired(command_option.required)
-              .setAutocomplete(command_option.autocomplete)
+    command.options?.forEach((option: any) => {
+      console.log(option);
+      switch (option.type) {
+        case "string":
+          slashCommand.addStringOption((command_option) =>
+            command_option
+              .setName(option.name)
+              .setDescription(option.description)
+              .setRequired(option.required)
           );
-        else console.log(command_option.type + " is not a valid option type.");
-      });
-    }
-
-    console.log(slashCommand.toJSON().options![0]);
+          break;
+        case "user":
+          slashCommand.addUserOption((command_option) =>
+            command_option
+              .setName(option.name)
+              .setDescription(option.description)
+              .setRequired(option.required)
+          );
+          break;
+        default:
+          console.log("zizi");
+      }
+    });
 
     client_commands.push(slashCommand);
   });

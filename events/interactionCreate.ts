@@ -21,14 +21,14 @@ export default async function interactionCreate(
     if (interaction.guild) {
       let user = interaction.guild.members.cache.get(interaction.user.id)!;
       if (
-        command.permission !== "Aucune" &&
+        command.permission !== null &&
         user.permissions.has(command.permission)
       ) {
         command.run(client, interaction, interaction.options);
-      } else if (command.permission === "Aucune") {
+      } else if (command.permission === null) {
         command.run(client, interaction, interaction.options);
       } else if (
-        command.permission !== "Aucune" &&
+        command.permission !== null &&
         !user.permissions.has(command.permission)
       ) {
         let embed = new EmbedBuilder()
