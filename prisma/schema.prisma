@@ -1,0 +1,29 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Warns {
+  user      String
+  reason    String
+  moderator String
+  date      DateTime @default(now())
+
+  @@id([user, moderator])
+}
+
+model XP {
+  user    String
+  xp      Int
+  level   Int
+  date    DateTime @default(now())
+
+  @@id([user])
+}

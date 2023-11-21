@@ -1,5 +1,6 @@
 import { Client, Collection } from "discord.js";
 import { config } from "dotenv";
+import { PrismaClient } from "@prisma/client";
 
 config();
 
