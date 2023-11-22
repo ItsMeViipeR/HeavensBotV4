@@ -9,7 +9,7 @@ export class HeavensBot extends Client {
 
   public constructor() {
     super({
-      intents: 37379,
+      intents: 38663,
     });
   }
 
