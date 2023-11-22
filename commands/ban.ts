@@ -1,22 +1,22 @@
 import { HeavensBot } from "../client";
 import { CommandInteraction, EmbedBuilder, User } from "discord.js";
 
-const kick = {
-  name: "kick",
-  description: "Kick a member from the guild.",
+const ban = {
+  name: "ban",
+  description: "Ban a member from the guild.",
   permissions: null,
   category: "Moderation",
   dm: false,
   options: [
     {
       name: "member",
-      description: "The member to kick.",
+      description: "The member to ban.",
       type: "user",
       required: true,
     },
     {
       name: "reason",
-      description: "The reason of the kick.",
+      description: "The reason of the ban.",
       type: "string",
       required: false,
     },
@@ -27,23 +27,23 @@ const kick = {
 
     if (user.id === interation.user.id) {
       return interation.reply({
-        content: "You cannot kick yourself!",
+        content: "You cannot ban yourself!",
         ephemeral: true,
       });
     }
 
     if (user.id === client.user!.id) {
       return interation.reply({
-        content: "You cannot kick me!",
+        content: "You cannot ban me!",
         ephemeral: true,
       });
     }
 
     if (reason !== null && reason !== undefined) {
-      await interation.guild!.members.kick(user, reason);
+      await interation.guild!.members.ban(user, { reason });
       try {
         user.send({
-          content: `You have been kicked from ${
+          content: `You have been banned from ${
             interation.guild!.name
           } for ${reason}!`,
         });
@@ -51,10 +51,10 @@ const kick = {
         console.log(e);
       }
     } else {
-      await interation.guild!.members.kick(user);
+      await interation.guild!.members.ban(user);
       try {
         user.send({
-          content: `You have been kicked from ${interation.guild!.name}!`,
+          content: `You have been banned from ${interation.guild!.name}!`,
         });
       } catch (e) {
         console.log(e);
@@ -64,9 +64,9 @@ const kick = {
     return interation.reply({
       embeds: [
         new EmbedBuilder()
-          .setTitle("User kicked")
+          .setTitle("User banned")
           .setDescription(
-            `${user.tag} has been kicked from ${interation.guild!.name}`
+            `${user.tag} has been banned from ${interation.guild!.name}`
           )
           .setColor("Red")
           .setImage(user.displayAvatarURL())
@@ -95,4 +95,4 @@ const kick = {
   },
 };
 
-export default kick;
+export default ban;
