@@ -31,7 +31,16 @@ const help = {
               };
             })
           )
-          .setColor("Random"),
+          .setColor("Random")
+          .setTimestamp()
+          .setFooter({
+            text: `©️ ${
+              new Date().getFullYear() === 2023
+                ? 2023
+                : `2023-${new Date().getFullYear()}`
+            } ${client.user!.tag}`,
+            iconURL: client.user!.displayAvatarURL(),
+          }),
       ],
     });
   },

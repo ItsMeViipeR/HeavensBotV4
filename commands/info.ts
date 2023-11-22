@@ -1,4 +1,4 @@
-import { CommandInteraction } from "discord.js";
+import { CommandInteraction, EmbedBuilder } from "discord.js";
 import { HeavensBot } from "../client";
 import moment from "moment-timezone";
 
@@ -12,9 +12,10 @@ const info = {
   async run(client: HeavensBot, interaction: CommandInteraction) {
     await interaction.reply({
       embeds: [
-        {
-          title: "Bot Information",
-          fields: [
+        new EmbedBuilder()
+          .setTitle("Bot information")
+          .setDescription("Here is some information about me.")
+          .addFields(
             {
               name: "Name",
               value: client.user!.username,
@@ -57,9 +58,22 @@ const info = {
               value: `${client.ws.ping}ms`,
               inline: true,
             },
-          ],
-          color: 0x2f3136,
-        },
+            {
+              name: "Version",
+              value: "4.0.0",
+              inline: true,
+            }
+          )
+          .setColor("Random")
+          .setTimestamp()
+          .setFooter({
+            text: `©️ ${
+              new Date().getFullYear() === 2023
+                ? 2023
+                : `2023-${new Date().getFullYear()}`
+            } ${client.user!.tag}`,
+            iconURL: client.user!.displayAvatarURL(),
+          }),
       ],
     });
   },
