@@ -18,7 +18,8 @@
   "homepage": "https://github.com/ItsMeViipeR/HeavensBotV4#readme",
   "dependencies": {
     "discord.js": "^14.14.1",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "moment-timezone": "^0.5.43"
   },
   "devDependencies": {
     "@prisma/client": "^5.6.0",
